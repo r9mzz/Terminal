@@ -1,0 +1,34 @@
+import { NavLink } from 'react-router-dom';
+
+const links = [
+  { to: '/', label: 'Accueil' },
+  { to: '/erreurs', label: 'Erreurs' },
+  { to: '/concepts', label: 'Concepts' },
+  { to: '/strategies', label: 'Stratégies' },
+  { to: '/journal', label: 'Journal' },
+  { to: '/ressources', label: 'Ressources' },
+];
+
+export default function Nav() {
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 border-t border-[#1c1c1e] bg-[#0b0b0c]/95 backdrop-blur-sm">
+      <ul className="flex justify-between overflow-x-auto px-2 py-3 text-xs">
+        {links.map((l) => (
+          <li key={l.to} className="flex-1 text-center">
+            <NavLink
+              to={l.to}
+              end={l.to === '/'}
+              className={({ isActive }) =>
+                `block px-2 py-1 transition-colors duration-300 ${
+                  isActive ? 'text-[#0a84ff]' : 'text-[#8a8a8e]'
+                }`
+              }
+            >
+              {l.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
