@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ListRow from '../components/ListRow';
 import db from '../db';
 
-const CATEGORIES = ['ICT', 'Price Action', 'Psychologie', 'Gestion du risque', 'Indices', 'Macro'];
+const CATEGORIES = ['ICT', 'Price Action', 'Psychologie', 'Gestion du risque', 'Indices', 'Macro', 'Indicateurs'];
 
 export default function Concepts() {
   const concepts = useLiveQuery(() => db.concepts.toArray(), []) ?? [];

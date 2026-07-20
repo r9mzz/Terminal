@@ -18,9 +18,9 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('terminal_seeded')) return;
+    localStorage.setItem('terminal_seeded', '1');
     isDatabaseEmpty().then((empty) => {
       if (empty) seedDatabase();
-      localStorage.setItem('terminal_seeded', '1');
     });
   }, []);
 
