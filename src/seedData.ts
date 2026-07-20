@@ -6,6 +6,42 @@ const diagram = (name: string) => `${import.meta.env.BASE_URL}diagrams/${name}.s
 export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
   // --- ICT & SMC ---
   {
+    titre: 'Introduction à ICT (Inner Circle Trading)',
+    categorie: 'ICT',
+    contenu:
+      "Acronyme : ICT — Inner Circle Trading.\nCréateur : Michael J. Huddleston.\n\nPhilosophie : comprendre et suivre les mouvements de marché du point de vue des acteurs institutionnels (Smart Money) en lisant le Price Action brut et le flux d'ordres, sans indicateurs retardés (RSI, MACD, etc.).\n\nComparatif Analyse Traditionnelle vs ICT/SMC :\n- Support/Résistance : zones d'offre/demande historiques (traditionnelle) vs zones de concentration de liquidité exploitées par les algorithmes (ICT)\n- Breakouts : signal d'achat/vente immédiat (traditionnelle) vs souvent des pièges - Inducement/Liquidity Sweeps - pour créer la contrepartie institutionnelle (ICT)\n- Stop Loss : placés arbitrairement sous/sur les niveaux (traditionnelle) vs placés selon des critères d'invalidation structurelle, au-delà d'un Order Block ou d'un Swing (ICT)",
+    images: [],
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Kill Zones (Sessions de trading)',
+    categorie: 'ICT',
+    contenu:
+      "Définition : fenêtres horaires où le volume et la volatilité institutionnelle sont les plus élevés, à privilégier pour trader.\n\nSessions (heure EST) :\n- Asian Range : 18:00 - 03:00 — consolidation, faible volatilité, formation de la liquidité initiale\n- London Kill Zone : 02:00 - 05:00 — haute volatilité, création du haut/bas du jour, initialisation du biais\n- New York Kill Zone : 08:30 - 11:30 — volume maximal, continuation du mouvement de Londres ou retournement majeur\n\nInvalidation : chercher des setups de qualité en dehors de ces fenêtres (faible probabilité).",
+    images: [],
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Déplacement (Displacement)',
+    categorie: 'ICT',
+    contenu:
+      "Définition : mouvement rapide et explosif composé de bougies consécutives de même couleur avec peu de mèches.\n\nConditions :\n- Corps de bougies larges, mèches minimes\n- Confirme la présence institutionnelle derrière le mouvement\n- Génère souvent un ou plusieurs Fair Value Gaps dans son sillage\n\nInvalidation : mouvement lent avec de longues mèches, plutôt caractéristique d'un range ou d'une manipulation.",
+    images: [],
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Inducement & Liquidity Sweep',
+    categorie: 'ICT',
+    contenu:
+      "Définition : faux mouvement destiné à déclencher les Stop Loss des traders retail et piéger la foule pour créer la liquidité nécessaire aux institutions.\n\nConditions :\n- Petit swing high/low créé juste avant un niveau de liquidité majeur (l'Inducement)\n- Le prix balaye ce niveau puis se retourne fortement dans le sens inverse\n\nApplication : toujours attendre le sweep de l'Inducement avant d'entrer dans le sens inverse du piège, plutôt que d'anticiper le retournement.",
+    images: [],
+    liens: [],
+    date: now(),
+  },
+  {
     titre: 'Fair Value Gap (FVG)',
     categorie: 'ICT',
     contenu:
@@ -24,10 +60,10 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     date: now(),
   },
   {
-    titre: 'Break of Structure (BOS)',
+    titre: 'BOS (Break of Structure) & CHoCH (Change of Character)',
     categorie: 'ICT',
     contenu:
-      "Définition : cassure d'un plus haut (High) ou plus bas (Low) majeur dans le sens de la tendance avec le corps de la bougie.\n\nConditions :\n- Confirmation impérative avec la clôture du corps (Body)\n- Une simple mèche (Wick) est considérée comme un Sweep/Liquidity Hunt\n\nInvalidation : réintégration immédiate du range précédent.",
+      "Définition : rupture des niveaux structurels clés confirmant la poursuite (BOS) ou l'inversion (CHoCH) de la tendance.\n- BOS : cassure d'un plus haut ou plus bas majeur dans le sens de la tendance en cours\n- CHoCH : cassure de structure dans le sens opposé à la tendance en cours, premier signal d'un possible retournement\n\nConditions :\n- Confirmation impérative avec la clôture du corps (Body)\n- Une simple mèche (Wick) est considérée comme un Sweep/Liquidity Hunt, pas une cassure\n- Analyse Multi-Timeframe : valider le biais en HTF (H1/H4/D1) et exécuter en LTF (M5/M15)\n\nInvalidation : réintégration immédiate du range précédent.",
     images: [diagram('bos')],
     liens: [],
     date: now(),

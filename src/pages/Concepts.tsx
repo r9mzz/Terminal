@@ -2,8 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'react';
 import ListRow from '../components/ListRow';
 import db from '../db';
-
-const CATEGORIES = ['ICT', 'Price Action', 'Psychologie', 'Gestion du risque', 'Indices', 'Macro', 'Indicateurs'];
+import { CATEGORIES } from '../categories';
 
 export default function Concepts() {
   const concepts = useLiveQuery(() => db.concepts.toArray(), []) ?? [];

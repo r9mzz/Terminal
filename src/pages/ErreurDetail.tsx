@@ -8,11 +8,13 @@ export default function ErreurDetail() {
   const navigate = useNavigate();
   const erreur = useLiveQuery(() => db.erreurs.get(Number(id)), [id]);
 
+  const [titre, setTitre] = useState('');
   const [description, setDescription] = useState('');
   const [solution, setSolution] = useState('');
 
   useEffect(() => {
     if (erreur) {
+      setTitre(erreur.titre);
       setDescription(erreur.description);
       setSolution(erreur.solution);
     }
@@ -20,8 +22,8 @@ export default function ErreurDetail() {
 
   if (!erreur) return null;
 
-  async function save() {
-    await db.erreurs.update(Number(id), { description, solution });
+  async function save(fields: Partial<typeof erreur>) {
+    await db.erreurs.update(Number(id), fields);
   }
 
   async function incrementer() {
@@ -35,14 +37,19 @@ export default function ErreurDetail() {
 
   return (
     <div className="px-4 pb-24 pt-8">
-      <h1 className="text-2xl text-[#f5f5f7]">{erreur.titre}</h1>
+      <input
+        value={titre}
+        onChange={(e) => setTitre(e.target.value)}
+        onBlur={() => save({ titre })}
+        className="block w-full bg-transparent text-2xl text-[#f5f5f7] outline-none"
+      />
 
       <div className="mt-6">
         <div className="text-sm text-[#8a8a8e]">Description / Pourquoi je fais cette erreur</div>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          onBlur={save}
+          onBlur={() => save({ description })}
           rows={5}
           className="mt-2 w-full resize-none border-b border-[#1c1c1e] bg-transparent py-2 text-[#f5f5f7] outline-none"
         />
@@ -53,7 +60,7 @@ export default function ErreurDetail() {
         <textarea
           value={solution}
           onChange={(e) => setSolution(e.target.value)}
-          onBlur={save}
+          onBlur={() => save({ solution })}
           rows={5}
           className="mt-2 w-full resize-none border-b border-[#1c1c1e] bg-transparent py-2 text-[#f5f5f7] outline-none"
         />

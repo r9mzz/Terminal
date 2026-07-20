@@ -13,11 +13,13 @@ export default function StrategieDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const strategie = useLiveQuery(() => db.strategies.get(Number(id)), [id]);
+  const [nom, setNom] = useState('');
   const [values, setValues] = useState({ objectif: '', conditions: '', etapes: '' });
   const [checklistText, setChecklistText] = useState('');
 
   useEffect(() => {
     if (strategie) {
+      setNom(strategie.nom);
       setValues({
         objectif: strategie.objectif,
         conditions: strategie.conditions,
@@ -29,10 +31,12 @@ export default function StrategieDetail() {
 
   if (!strategie) return null;
 
-  async function save() {
+  async function save(overrides: Partial<{ nom: string }> = {}) {
     await db.strategies.update(Number(id), {
+      nom,
       ...values,
       checklist: checklistText.split('\n').filter(Boolean),
+      ...overrides,
     });
   }
 
@@ -43,7 +47,12 @@ export default function StrategieDetail() {
 
   return (
     <div className="px-4 pb-24 pt-8">
-      <h1 className="text-2xl text-[#f5f5f7]">{strategie.nom}</h1>
+      <input
+        value={nom}
+        onChange={(e) => setNom(e.target.value)}
+        onBlur={() => save({ nom })}
+        className="block w-full bg-transparent text-2xl text-[#f5f5f7] outline-none"
+      />
 
       {FIELDS.map((f) => (
         <div key={f.key} className="mt-6">
@@ -51,7 +60,7 @@ export default function StrategieDetail() {
           <textarea
             value={values[f.key]}
             onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))}
-            onBlur={save}
+            onBlur={() => save()}
             rows={3}
             className="mt-2 w-full resize-none border-b border-[#1c1c1e] bg-transparent py-2 text-[#f5f5f7] outline-none"
           />
@@ -63,7 +72,7 @@ export default function StrategieDetail() {
         <textarea
           value={checklistText}
           onChange={(e) => setChecklistText(e.target.value)}
-          onBlur={save}
+          onBlur={() => save()}
           rows={5}
           className="mt-2 w-full resize-none border-b border-[#1c1c1e] bg-transparent py-2 text-[#f5f5f7] outline-none"
         />
