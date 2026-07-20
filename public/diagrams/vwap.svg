@@ -1,9 +1,0 @@
-<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-  <rect width="600" height="300" fill="#0b0b0c"/>
-  <polyline points="60,130 150,110 240,140 330,150 420,120 500,100 560,90"
-    fill="none" stroke="#0a84ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <polyline points="60,180 130,120 200,160 260,90 330,150 400,80 460,170 530,110 560,140"
-    fill="none" stroke="#f5f5f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="470" y="80" fill="#0a84ff" font-family="system-ui" font-size="14">VWAP</text>
-  <text x="300" y="260" text-anchor="middle" fill="#8a8a8e" font-family="system-ui" font-size="16">VWAP</text>
-</svg>

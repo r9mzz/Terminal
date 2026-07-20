@@ -3,27 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import Sidebar from './components/Sidebar';
 import SearchOverlay from './components/Search';
-import { isDatabaseEmpty, seedDatabase } from './seed';
 import Home from './pages/Home';
-import Erreurs from './pages/Erreurs';
-import ErreurDetail from './pages/ErreurDetail';
-import Concepts from './pages/Concepts';
-import ConceptDetail from './pages/ConceptDetail';
-import Strategies from './pages/Strategies';
-import StrategieDetail from './pages/StrategieDetail';
-import Journal from './pages/Journal';
-import Ressources from './pages/Ressources';
+import Connaissance from './pages/Connaissance';
 
 function App() {
   const [searchOpen, setSearchOpen] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem('terminal_seeded')) return;
-    localStorage.setItem('terminal_seeded', '1');
-    isDatabaseEmpty().then((empty) => {
-      if (empty) seedDatabase();
-    });
-  }, []);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -51,14 +35,8 @@ function App() {
         <div className="mx-auto max-w-5xl">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/erreurs" element={<Erreurs />} />
-            <Route path="/erreurs/:id" element={<ErreurDetail />} />
-            <Route path="/concepts" element={<Concepts />} />
-            <Route path="/concepts/:id" element={<ConceptDetail />} />
-            <Route path="/strategies" element={<Strategies />} />
-            <Route path="/strategies/:id" element={<StrategieDetail />} />
-            <Route path="/journal" element={<Journal />} />
-            <Route path="/ressources" element={<Ressources />} />
+            <Route path="/connaissance" element={<Connaissance />} />
+            <Route path="/connaissance/:id" element={<Connaissance />} />
           </Routes>
         </div>
       </div>

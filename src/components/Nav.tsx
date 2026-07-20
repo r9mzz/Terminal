@@ -2,11 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 const links = [
   { to: '/', label: 'Accueil' },
-  { to: '/erreurs', label: 'Erreurs' },
-  { to: '/concepts', label: 'Concepts' },
-  { to: '/strategies', label: 'Stratégies' },
-  { to: '/journal', label: 'Journal' },
-  { to: '/ressources', label: 'Ressources' },
+  { to: '/connaissance', label: 'Connaissance' },
 ];
 
 export default function Nav() {

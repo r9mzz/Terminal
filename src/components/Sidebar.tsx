@@ -1,13 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { Home, AlertTriangle, BookOpen, TrendingUp, NotebookPen, Library, Search, Terminal } from 'lucide-react';
+import { Home, BookOpen, Search, Terminal } from 'lucide-react';
 
 const links = [
   { to: '/', label: 'Accueil', icon: Home, end: true },
-  { to: '/erreurs', label: 'Erreurs', icon: AlertTriangle },
-  { to: '/concepts', label: 'Concepts', icon: BookOpen },
-  { to: '/strategies', label: 'Stratégies', icon: TrendingUp },
-  { to: '/journal', label: 'Journal', icon: NotebookPen },
-  { to: '/ressources', label: 'Ressources', icon: Library },
+  { to: '/connaissance', label: 'Connaissance', icon: BookOpen, end: false },
 ];
 
 export default function Sidebar({ onSearch }: { onSearch: () => void }) {
