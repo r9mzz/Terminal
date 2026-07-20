@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Terminal">
       <div className="mx-auto max-w-xl">
         <button
           onClick={() => setSearchOpen(true)}
