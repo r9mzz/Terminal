@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import SearchOverlay from './components/Search';
+import { isDatabaseEmpty, seedDatabase } from './seed';
 import Home from './pages/Home';
 import Erreurs from './pages/Erreurs';
 import ErreurDetail from './pages/ErreurDetail';
@@ -14,6 +15,14 @@ import Ressources from './pages/Ressources';
 
 function App() {
   const [searchOpen, setSearchOpen] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem('terminal_seeded')) return;
+    isDatabaseEmpty().then((empty) => {
+      if (empty) seedDatabase();
+      localStorage.setItem('terminal_seeded', '1');
+    });
+  }, []);
 
   return (
     <BrowserRouter>

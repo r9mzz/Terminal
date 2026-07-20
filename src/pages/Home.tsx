@@ -1,6 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import db from '../db';
+import { seedDatabase } from '../seed';
 
 export default function Home() {
   const lastConcepts = useLiveQuery(() => db.concepts.orderBy('date').reverse().limit(4).toArray(), []) ?? [];
@@ -8,6 +10,14 @@ export default function Home() {
     () => db.erreurs.orderBy('occurrences').reverse().first(),
     []
   );
+  const [seeding, setSeeding] = useState(false);
+
+  async function chargerDemo() {
+    setSeeding(true);
+    await seedDatabase();
+    localStorage.setItem('terminal_seeded', '1');
+    setSeeding(false);
+  }
 
   return (
     <div className="px-4 pb-24 pt-8">
@@ -34,6 +44,14 @@ export default function Home() {
           )}
         </div>
       </div>
+
+      <button
+        onClick={chargerDemo}
+        disabled={seeding}
+        className="mt-16 text-sm text-[#8a8a8e] transition-opacity duration-300 active:opacity-60 disabled:opacity-40"
+      >
+        {seeding ? 'Chargement...' : 'Charger les données de démonstration'}
+      </button>
     </div>
   );
 }
