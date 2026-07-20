@@ -29,6 +29,14 @@ export default function ConceptDetail() {
       <div className="text-sm text-[#8a8a8e]">{concept.categorie}</div>
       <h1 className="text-2xl text-[#f5f5f7]">{concept.titre}</h1>
 
+      {concept.images.length > 0 && (
+        <div className="mt-6 flex flex-col gap-4">
+          {concept.images.map((src) => (
+            <img key={src} src={src} alt={concept.titre} className="w-full rounded-lg border border-[#1c1c1e]" />
+          ))}
+        </div>
+      )}
+
       <textarea
         value={contenu}
         onChange={(e) => setContenu(e.target.value)}

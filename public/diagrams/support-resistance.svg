@@ -1,0 +1,10 @@
+<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="300" fill="#0b0b0c"/>
+  <line x1="60" y1="90" x2="540" y2="90" stroke="#0a84ff" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="565" y="94" fill="#0a84ff" font-family="system-ui" font-size="12" text-anchor="end">R</text>
+  <line x1="60" y1="210" x2="540" y2="210" stroke="#0a84ff" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="565" y="214" fill="#0a84ff" font-family="system-ui" font-size="12" text-anchor="end">S</text>
+  <polyline points="60,150 130,210 200,150 270,90 340,150 410,210 480,150 540,110"
+    fill="none" stroke="#f5f5f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="300" y="260" text-anchor="middle" fill="#8a8a8e" font-family="system-ui" font-size="16">Supports & Résistances</text>
+</svg>

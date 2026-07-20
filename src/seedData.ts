@@ -1,6 +1,7 @@
 import type { Concept, Erreur, Strategie, Ressource } from './db';
 
 const now = () => new Date().toISOString();
+const diagram = (name: string) => `${import.meta.env.BASE_URL}diagrams/${name}.svg`;
 
 export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
   // --- ICT & SMC ---
@@ -9,7 +10,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'ICT',
     contenu:
       "Définition : imbalance (déséquilibre) de prix sur 3 bougies consécutives où seule la bougie centrale fournit de la liquidité dans une direction.\n\nConditions :\n- Bougie 1 High ne touche pas Bougie 3 Low (bullish)\n- Présence d'un vide de cotation à rééquilibrer\n- Le prix revient souvent retester au moins 50% du FVG (CE)\n\nInvalidation : clôture du corps d'une bougie sous/sur le Consequent Encroachment (50% du FVG).",
-    images: [],
+    images: [diagram('fvg')],
     liens: [],
     date: now(),
   },
@@ -18,7 +19,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'ICT',
     contenu:
       "Définition : dernière bougie baissière/haussière avant un mouvement impulsif fort ayant cassé la structure (BOS).\n\nConditions :\n- A créé une cassure de structure (BOS/MSS)\n- A généré un FVG juste après son empreinte\n- A idéalement balayé la liquidité préalable (Sweep)\n\nInvalidation : traversée nette du corps de la bougie Order Block.",
-    images: [],
+    images: [diagram('order-block')],
     liens: [],
     date: now(),
   },
@@ -27,7 +28,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'ICT',
     contenu:
       "Définition : cassure d'un plus haut (High) ou plus bas (Low) majeur dans le sens de la tendance avec le corps de la bougie.\n\nConditions :\n- Confirmation impérative avec la clôture du corps (Body)\n- Une simple mèche (Wick) est considérée comme un Sweep/Liquidity Hunt\n\nInvalidation : réintégration immédiate du range précédent.",
-    images: [],
+    images: [diagram('bos')],
     liens: [],
     date: now(),
   },
@@ -36,7 +37,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'ICT',
     contenu:
       "Définition : changement de tendance à court terme à la suite d'une prise de liquidité majeure.\n\nConditions :\n- Sweep de liquidité (BSL ou SSL)\n- Mouvement impulsif opposé cassant le dernier creux/sommet récent avec FVG\n\nInvalidation : le prix continue dans la direction initiale sans créer de FVG.",
-    images: [],
+    images: [diagram('mss')],
     liens: [],
     date: now(),
   },
@@ -45,7 +46,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'ICT',
     contenu:
       "Définition : zones où s'accumulent les Stop Loss des traders retail (Buy Side Liquidity au-dessus des sommets, Sell Side Liquidity sous les creux).\n\nConditions :\n- Equal Highs (EQH) ou Equal Lows (EQL)\n- Trendline Liquidity (alignement de plus bas ou plus hauts)\n- Highs/Lows de la session précédente (PDH/PDL, PWH/PWL)\n\nInvalidation : la liquidité est toujours consommée ou créée.",
-    images: [],
+    images: [diagram('liquidity')],
     liens: [],
     date: now(),
   },
@@ -54,7 +55,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'ICT',
     contenu:
       "Définition : zone de retracement de Fibonacci idéale située entre 61.8%, 70.5% et 79% d'un mouvement impulsif.\n\nConditions :\n- Tracer le Fibo du creux au sommet (ou inversement) du Leg de structure\n- La zone 70.5% représente le 'Sweet Spot' de rechargement\n\nInvalidation : cassure du niveau 100% de Fibonacci (Invalidation du Leg).",
-    images: [],
+    images: [diagram('ote')],
     liens: [],
     date: now(),
   },
@@ -74,7 +75,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'Price Action',
     contenu:
       "Définition : niveaux horizontaux où le prix a rebondi ou bloqué plusieurs fois dans le passé.\n\nConditions :\n- Au moins 2 ou 3 points de contact identifiables\n- Changement de rôle (Role Reversal) : un ancien Support devient Résistance\n\nInvalidation : breakout net confirmé par le volume.",
-    images: [],
+    images: [diagram('support-resistance')],
     liens: [],
     date: now(),
   },
@@ -94,7 +95,7 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'Indicateurs',
     contenu:
       "Définition : prix moyen pondéré par les volumes. Utilisé principalement sur les indices (NAS100, US500) et par les institutionnels, fonctionne aussi très bien en H4/Daily sur BTC.\n\nConditions :\n- Prix au-dessus du VWAP = biais haussier (Buyers in control)\n- Prix au-dessous du VWAP = biais baissier (Sellers in control)\n- Retest du VWAP sert de support/résistance dynamique\n\nInvalidation : traversée violente avec fort volume dans le sens inverse.",
-    images: [],
+    images: [diagram('vwap')],
     liens: [],
     date: now(),
   },
@@ -112,12 +113,50 @@ export const SEED_CONCEPTS: Omit<Concept, 'id'>[] = [
     categorie: 'Indicateurs',
     contenu:
       "Définition : oscillateur mesurant la vitesse et le changement des mouvements de prix. Utilisé pour repérer les surachats (>70), surventes (<30) et divergences.\n\nConditions :\n- Divergence Haussière : prix fait un plus bas (Lower Low) mais RSI fait un plus haut (Higher Low)\n- Divergence Baissière : prix fait un plus haut (Higher High) mais RSI fait un plus bas (Lower High)\n\nInvalidation : continuation impulsive du prix annulant la divergence.",
+    images: [diagram('rsi-divergence')],
+    liens: [],
+    date: now(),
+  },
+
+  // --- PSYCHOLOGIE ---
+  {
+    titre: 'Revenge Trading',
+    categorie: 'Psychologie',
+    contenu:
+      "Définition : envie irrépressible de reprendre une position immédiatement après une perte pour 'se venger' du marché et récupérer l'argent perdu.\n\nConditions (signes avant-coureurs) :\n- Ouverture d'un trade moins de 5 minutes après un SL\n- Absence de setup clair, entrée au marché sans checklist\n- Augmentation de la taille de position par rapport au trade précédent\n\nInvalidation : aucune — c'est un pattern comportemental à couper à la source, pas un setup à valider.",
+    images: [],
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Biais de Confirmation',
+    categorie: 'Psychologie',
+    contenu:
+      "Définition : tendance à ne voir que les éléments graphiques qui confirment l'idée de trade qu'on a déjà en tête, en ignorant les signaux contraires.\n\nConditions :\n- Chercher un setup après avoir décidé du sens du trade plutôt que l'inverse\n- Ignorer une structure HTF opposée au biais souhaité\n- Changer de timeframe jusqu'à trouver un graphique qui 'confirme'\n\nInvalidation : toujours partir de l'analyse HTF neutre avant de chercher une direction.",
+    images: [],
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Routine Pré-Trading',
+    categorie: 'Psychologie',
+    contenu:
+      "Définition : ensemble de vérifications systématiques effectuées avant d'ouvrir la plateforme de trading, pour trader depuis un état mental stable.\n\nConditions :\n- Vérifier le calendrier économique du jour (news Red Folder)\n- Noter son état émotionnel (fatigue, stress, excès de confiance)\n- Relire son plan de trading et sa checklist de stratégie\n- Définir la perte maximale acceptée pour la session (Max Daily Loss)\n\nInvalidation : ouvrir un graphique et trader dans l'instant sans préparation.",
+    images: [],
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Overconfidence après une série de gains',
+    categorie: 'Psychologie',
+    contenu:
+      "Définition : excès de confiance après plusieurs trades gagnants consécutifs, menant à une prise de risque disproportionnée.\n\nConditions (signes avant-coureurs) :\n- Envie d'augmenter la taille de position 'parce que ça marche'\n- Skip de la checklist car on se sent 'en feu'\n- Multiplication du nombre de trades pris dans la journée\n\nInvalidation : garder un risque fixe par trade quelle que soit la série en cours, gagnante ou perdante.",
     images: [],
     liens: [],
     date: now(),
   },
 
-  // --- PSYCHOLOGIE & RISQUE ---
+  // --- GESTION DU RISQUE ---
   {
     titre: 'Règle des 1% & R:R Minimum',
     categorie: 'Gestion du risque',
@@ -210,6 +249,28 @@ export const SEED_ERREURS: Omit<Erreur, 'id'>[] = [
       "Placer un ordre directement sur un niveau H1 sans chercher de confirmation en M5/M15.\n\nPourquoi je fais cette erreur : impatience et flemme d'attendre la confirmation sur petite unité de temps.",
     solution:
       "Checklist :\n- Suis-je descendu en M5 pour voir s'il y a une cassure de structure ?\n- Mon Stop Loss est-il inutilement trop large ?",
+    captures: [],
+    occurrences: 0,
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Revenge trading après un Stop Loss',
+    description:
+      "Réouverture immédiate d'une position, souvent plus grosse, juste après avoir pris un Stop Loss, sans nouveau setup valide.\n\nPourquoi je fais cette erreur : besoin émotionnel de 'se refaire' tout de suite, incapacité à laisser passer le temps entre deux trades.",
+    solution:
+      "Checklist :\n- Est-ce que j'ai attendu au moins 30 minutes après mon dernier SL ?\n- Ce nouveau trade a-t-il un setup complet et indépendant du précédent ?\n- Suis-je en train de vouloir 'récupérer' un montant précis plutôt que de suivre mon plan ?",
+    captures: [],
+    occurrences: 0,
+    liens: [],
+    date: now(),
+  },
+  {
+    titre: 'Trading sans routine pré-session',
+    description:
+      "Ouvrir directement la plateforme et chercher un trade sans avoir vérifié le calendrier économique, son état émotionnel ou son plan du jour.\n\nPourquoi je fais cette erreur : impatience de commencer à trader, sous-estimation de l'impact de la préparation sur la qualité des décisions.",
+    solution:
+      "Checklist :\n- Ai-je consulté le calendrier économique (ForexFactory) ?\n- Ai-je noté mon état émotionnel du jour ?\n- Ai-je relu ma checklist de stratégie avant d'ouvrir un graphique ?",
     captures: [],
     occurrences: 0,
     liens: [],

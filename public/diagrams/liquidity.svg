@@ -1,0 +1,14 @@
+<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="300" fill="#0b0b0c"/>
+  <line x1="60" y1="80" x2="540" y2="80" stroke="#0a84ff" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="565" y="84" fill="#0a84ff" font-family="system-ui" font-size="12" text-anchor="end">BSL</text>
+  <line x1="60" y1="220" x2="540" y2="220" stroke="#0a84ff" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="565" y="224" fill="#0a84ff" font-family="system-ui" font-size="12" text-anchor="end">SSL</text>
+  <circle cx="150" cy="80" r="4" fill="#f5f5f7"/>
+  <circle cx="330" cy="82" r="4" fill="#f5f5f7"/>
+  <circle cx="230" cy="218" r="4" fill="#f5f5f7"/>
+  <circle cx="440" cy="222" r="4" fill="#f5f5f7"/>
+  <polyline points="60,150 150,80 220,130 330,82 400,150 440,222 500,120"
+    fill="none" stroke="#8a8a8e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="300" y="270" text-anchor="middle" fill="#8a8a8e" font-family="system-ui" font-size="16">Liquidity Pools (BSL / SSL)</text>
+</svg>
