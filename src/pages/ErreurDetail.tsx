@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import db from '../db';
+import db, { type Erreur } from '../db';
 
 export default function ErreurDetail() {
   const { id } = useParams();
@@ -22,7 +22,7 @@ export default function ErreurDetail() {
 
   if (!erreur) return null;
 
-  async function save(fields: Partial<typeof erreur>) {
+  async function save(fields: Partial<Erreur>) {
     await db.erreurs.update(Number(id), fields);
   }
 

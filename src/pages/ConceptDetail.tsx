@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import db from '../db';
+import db, { type Concept } from '../db';
 import { CATEGORIES } from '../categories';
 
 export default function ConceptDetail() {
@@ -22,7 +22,7 @@ export default function ConceptDetail() {
 
   if (!concept) return null;
 
-  async function save(fields: Partial<typeof concept>) {
+  async function save(fields: Partial<Concept>) {
     await db.concepts.update(Number(id), fields);
   }
 
