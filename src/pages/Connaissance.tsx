@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FileText, Plus, ChevronRight, BookOpen } from 'lucide-react';
+import { FileText, Plus, ChevronRight, BookOpen, ClipboardPaste } from 'lucide-react';
 import db, { ROOT, type Page } from '../db';
 import EmptyState from '../components/EmptyState';
 
@@ -37,6 +37,7 @@ export default function Connaissance() {
   const [contenu, setContenu] = useState('');
   const [creating, setCreating] = useState(false);
   const [newTitre, setNewTitre] = useState('');
+  const [pasteError, setPasteError] = useState('');
 
   useEffect(() => {
     if (page) {
@@ -65,6 +66,31 @@ export default function Connaissance() {
     });
     setNewTitre('');
     setCreating(false);
+    navigate(`/connaissance/${newId}`);
+  }
+
+  async function collerMessage() {
+    setPasteError('');
+    let texte: string;
+    try {
+      texte = await navigator.clipboard.readText();
+    } catch {
+      setPasteError("Impossible de lire le presse-papier. Autorise l'accès puis réessaie (Ctrl+V ne marche que via ce bouton).");
+      return;
+    }
+    if (!texte.trim()) {
+      setPasteError('Le presse-papier est vide.');
+      return;
+    }
+    const lignes = texte.trim().split('\n');
+    const titrePage = lignes[0].slice(0, 80) || 'Message collé';
+    const contenuPage = lignes.slice(1).join('\n').trim() || texte.trim();
+    const newId = await db.pages.add({
+      parentId: pageId,
+      titre: titrePage,
+      contenu: contenuPage,
+      date: new Date().toISOString(),
+    });
     navigate(`/connaissance/${newId}`);
   }
 
@@ -118,18 +144,30 @@ export default function Connaissance() {
         />
       )}
 
-      <div className="mt-8 flex items-center justify-between">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <span className="text-xs font-medium uppercase tracking-wide text-zinc-600">
           {children.length === 0 ? 'Sous-pages' : `${children.length} sous-page${children.length > 1 ? 's' : ''}`}
         </span>
-        <button
-          onClick={() => setCreating((c) => !c)}
-          className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm text-zinc-300 transition-colors duration-200 hover:border-zinc-700"
-        >
-          <Plus size={15} />
-          Nouvelle page
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={collerMessage}
+            title="Colle un message copié (ex: depuis Telegram) pour en faire une page"
+            className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm text-zinc-300 transition-colors duration-200 hover:border-zinc-700"
+          >
+            <ClipboardPaste size={15} />
+            Coller un message
+          </button>
+          <button
+            onClick={() => setCreating((c) => !c)}
+            className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm text-zinc-300 transition-colors duration-200 hover:border-zinc-700"
+          >
+            <Plus size={15} />
+            Nouvelle page
+          </button>
+        </div>
       </div>
+
+      {pasteError && <p className="mt-3 text-sm text-rose-400">{pasteError}</p>}
 
       {creating && (
         <div className="mt-4 flex gap-2">
