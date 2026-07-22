@@ -4,23 +4,23 @@ import { useEffect, useState } from 'react';
 import { BookOpen, FileText, ArrowRight, Download } from 'lucide-react';
 import db from '../db';
 import EmptyState from '../components/EmptyState';
-import { isImportPending, runImport } from '../importData';
+import { pendingBatches, runBatch, type ImportBatch } from '../importData';
 
 export default function Home() {
   const recent = useLiveQuery(() => db.pages.orderBy('date').reverse().limit(6).toArray(), []) ?? [];
   const total = useLiveQuery(() => db.pages.count(), []) ?? 0;
-  const [pendingImport, setPendingImport] = useState(false);
-  const [importing, setImporting] = useState(false);
+  const [pending, setPending] = useState<ImportBatch[]>([]);
+  const [importingId, setImportingId] = useState<string | null>(null);
 
   useEffect(() => {
-    isImportPending().then(setPendingImport);
+    pendingBatches().then(setPending);
   }, []);
 
-  async function importer() {
-    setImporting(true);
-    await runImport();
-    setPendingImport(false);
-    setImporting(false);
+  async function importer(batch: ImportBatch) {
+    setImportingId(batch.id);
+    await runBatch(batch);
+    setPending((p) => p.filter((b) => b.id !== batch.id));
+    setImportingId(null);
   }
 
   return (
@@ -28,20 +28,25 @@ export default function Home() {
       <h1 className="text-3xl font-medium text-zinc-100">Terminal</h1>
       <p className="mt-1 text-sm text-zinc-500">Ton second cerveau. Écris, organise, retrouve.</p>
 
-      {pendingImport && (
-        <button
-          onClick={importer}
-          disabled={importing}
-          className="mt-6 flex w-full items-center gap-3 rounded-xl border border-emerald-800/50 bg-emerald-500/10 p-4 text-left transition-colors duration-200 hover:border-emerald-700 disabled:opacity-50"
-        >
-          <Download size={18} className="shrink-0 text-emerald-400" />
-          <div>
-            <div className="text-sm font-medium text-emerald-300">
-              {importing ? 'Import en cours...' : 'Importer les notes triées du groupe'}
-            </div>
-            <div className="text-xs text-emerald-500/80">3 pages : trade, macro, habitudes de session</div>
-          </div>
-        </button>
+      {pending.length > 0 && (
+        <div className="mt-6 flex flex-col gap-3">
+          {pending.map((batch) => (
+            <button
+              key={batch.id}
+              onClick={() => importer(batch)}
+              disabled={importingId === batch.id}
+              className="flex w-full items-center gap-3 rounded-xl border border-emerald-800/50 bg-emerald-500/10 p-4 text-left transition-colors duration-200 hover:border-emerald-700 disabled:opacity-50"
+            >
+              <Download size={18} className="shrink-0 text-emerald-400" />
+              <div>
+                <div className="text-sm font-medium text-emerald-300">
+                  {importingId === batch.id ? 'Import en cours...' : batch.label}
+                </div>
+                <div className="text-xs text-emerald-500/80">{batch.description}</div>
+              </div>
+            </button>
+          ))}
+        </div>
       )}
 
       <Link
