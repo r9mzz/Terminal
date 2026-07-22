@@ -117,6 +117,19 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-22_news_impact',
+    label: "Importer la note sur l'impact des news macro",
+    description: '1 page : comment lire le sens et la force du mouvement sur une news',
+    tree: [
+      {
+        titre: 'Impact des news macro sur le Gold — direction & intensité',
+        parentTitre: 'Macro & news (groupe)',
+        contenu:
+          "Comment lire l'impact d'une news macro sur le Gold (résumé du groupe) :\n\n- Les news les plus impactantes sur le Gold sont les annonces de données macroéconomiques (emploi, inflation, taux, etc.)\n- Le sens du mouvement se lit via l'impact de la news sur le dollar : le Gold est coté en USD, donc généralement inversé au dollar — une news qui renforce le dollar fait généralement baisser le Gold, et inversement.\n- Un gros mouvement ne se produit que s'il y a un écart entre le chiffre publié et ce qui était attendu (consensus/prévision). Une news jugée 'grosse' dont le résultat correspond aux attentes ne génère pas forcément de gros mouvement.\n\nÀ creuser : suivre le calendrier économique (ex: ForexFactory) et comparer le chiffre réel au consensus, pas seulement l'importance affichée de la news.",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string, parentId: number): Promise<number> {
