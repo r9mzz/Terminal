@@ -130,12 +130,25 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-23_news_nuance',
+    label: 'Importer la précision sur le trading des news',
+    description: "1 page : pourquoi une news se trade avant, pas pendant",
+    tree: [
+      {
+        titre: 'Nuance : une news se trade avant, pas pendant',
+        parentTitre: 'Impact des news macro sur le Gold — direction & intensité',
+        contenu:
+          "Précision apportée par PPVNSA sur la règle 'impact sur le dollar' :\n\n- Le principe de base reste valable : évaluer si la news est bonne ou mauvaise pour le dollar, puis en déduire l'effet probable sur le Gold (dollar monte → Gold baisse généralement, dollar baisse → Gold monte généralement).\n- Mais en pratique c'est plus compliqué que cette règle simple.\n- Problème principal : impossible de réagir assez vite à la publication d'une news pour avoir le temps de réfléchir, interpréter, puis passer un ordre — le temps de comprendre l'impact, le mouvement a déjà eu lieu.\n- Conclusion du groupe : une news se trade avant sa publication (positionnement en amont basé sur l'anticipation), pas après coup en réaction au chiffre publié.",
+      },
+    ],
+  },
 ];
 
-async function findOrCreateByTitle(titre: string, parentId: number): Promise<number> {
-  const existing = await db.pages.where('parentId').equals(parentId).and((p) => p.titre === titre).first();
+async function findOrCreateByTitle(titre: string): Promise<number> {
+  const existing = await db.pages.filter((p) => p.titre === titre).first();
   if (existing?.id !== undefined) return existing.id;
-  const id = await db.pages.add({ parentId, titre, contenu: '', date: new Date().toISOString() });
+  const id = await db.pages.add({ parentId: ROOT, titre, contenu: '', date: new Date().toISOString() });
   return id ?? ROOT;
 }
 
@@ -157,7 +170,7 @@ export async function pendingBatches(): Promise<ImportBatch[]> {
 
 export async function runBatch(batch: ImportBatch) {
   for (const node of batch.tree) {
-    const parentId = node.parentTitre ? await findOrCreateByTitle(node.parentTitre, ROOT) : ROOT;
+    const parentId = node.parentTitre ? await findOrCreateByTitle(node.parentTitre) : ROOT;
     await insertNode(node, parentId);
   }
   localStorage.setItem(`import_${batch.id}`, '1');
