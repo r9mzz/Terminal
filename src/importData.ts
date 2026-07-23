@@ -335,6 +335,19 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-24_poc_mode_emploi',
+    label: "Ajouter le mode d'emploi concret des 2 POC",
+    description: "Complète directement ta page 'Stratégie PPVNSA' (pas de nouvelle page)",
+    tree: [
+      {
+        titre: 'Stratégie PPVNSA',
+        appendTo: 'Stratégie PPVNSA',
+        contenu:
+          "MODE D'EMPLOI CONCRET : UTILISER LE POC VEILLE ET LE POC DU JOUR ENSEMBLE\nUn POC, une fois calculé, est juste une ligne horizontale à un prix précis — cette ligne reste valable sur n'importe quel timeframe ensuite. Le TF ne sert qu'au moment du calcul, pas à l'utilisation.\n\nÉtapes concrètes :\n1. Calculer le POC Veille sur un TF large (M5, M15, ou une Volume Profile Fixed Range tracée de minuit hier à minuit aujourd'hui) — plus pratique pour couvrir 24h sans avoir besoin de milliers de bougies. Ça donne UN prix (ex: 4120) → tracer une ligne horizontale à ce niveau\n2. Passer en M1 pour l'exécution — la ligne à 4120 reste affichée, elle ne bouge pas\n3. En M1, calculer AUSSI un POC local sur la séance en cours seulement (aujourd'hui) → donne un second prix, différent (ex: 4049)\n4. Les deux lignes coexistent sur le même graphique M1, à distinguer par une couleur différente (POC Veille en cyan, POC d'impulsion/du jour en rose par exemple)\n5. L'entrée (Order Block + Displacement) se lit toujours en M1, mais s'interprète selon laquelle des deux zones le prix est en train de toucher : proche du POC Veille = gros niveau qui compte depuis hier, proche du POC du jour = zone plus locale et récente\n\nCes deux POC ne se contredisent jamais comme POC vs VWAP peuvent le faire — ce sont deux aimants à portée différente (un gros et lointain, un petit et récent) gardés affichés en même temps, pas deux réponses concurrentes à la même question.",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
