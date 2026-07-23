@@ -322,6 +322,19 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-24_poc_multi_tf',
+    label: 'Ajouter la nuance : le POC diverge selon le timeframe',
+    description: "Complète directement ta page 'Stratégie PPVNSA' (pas de nouvelle page)",
+    tree: [
+      {
+        titre: 'Stratégie PPVNSA',
+        appendTo: 'Stratégie PPVNSA',
+        contenu:
+          "SUR QUEL TIMEFRAME REGARDER LE POC\nLe POC diverge d'un timeframe à l'autre, et c'est normal : le réglage 'Lookback Period' du script (200 par défaut) compte des bougies, pas une durée fixe. Donc 200 bougies en M1 = ~3h20 de données, en M5 = ~16h40, en H1 = ~8 jours. Ce n'est jamais la même fenêtre de temps analysée, donc jamais le même résultat.\n\nNe pas chercher UN seul 'bon' timeframe. Utiliser deux POC avec des rôles différents :\n- POC de contexte (zoom large, sur la session/journée précédente, comme le fait PPVNSA) : donne la direction générale et les grosses zones à surveiller\n- POC d'exécution (zoom court, M1) : sert à repérer le timing précis d'entrée (Order Block + Displacement)\n\nMême logique que l'analyse Multi-Timeframe (HTF donne le biais, LTF donne l'entrée) — ne jamais comparer les deux POC entre eux en se demandant lequel est vrai.\n\nAstuce pratique : si on veut qu'un POC représente une vraie session peu importe le timeframe, ajuster le Lookback Period à une durée réelle plutôt que le défaut : ~400-500 en M1 (session ~7-8h), ~100 en M5, ~20-24 en H1 (une journée).",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
