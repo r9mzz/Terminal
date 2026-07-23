@@ -143,6 +143,63 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-23_vp_ppvnsa',
+    label: 'Importer la stratégie Volume Profile (PPVNSA)',
+    description: "5 pages : méthode POC/VWAP, exemple d'entrée, risque, outils, contexte VIP",
+    tree: [
+      {
+        titre: 'Stratégie Volume Profile — PPVNSA',
+        contenu:
+          "Stratégie enseignée par PPVNSA (fondateur du canal, lance un VIP payant dessus). Repose sur la lecture du Volume Profile, du POC et de la VWAP comme des aimants de prix. Détails dans les sous-pages.",
+        children: [
+          {
+            titre: 'Comment tracer et lire le Volume Profile',
+            contenu:
+              "Outil utilisé sur TradingView : indicateur 'LuxAlgo - Clusters Volume Profile' (certains membres le tracent aussi manuellement).\n\nZones clés :\n- POC (Point of Control) : niveau de plus forte concentration de volume, agit comme un aimant\n- POC d'impulsion : POC formé pendant un mouvement impulsif\n- POC Veille : POC de la session précédente\n- Value Area Low / High : bornes de la zone de volume principale, également des aimants\n- VWAP : utilisée ici comme point d'équilibre (le prix est 'cher' ou 'pas cher' par rapport à la VWAP), pas juste comme support/résistance\n\nComment tracer selon le style :\n- Pour trader la session US : tracer le profil de l'ouverture asiatique jusqu'à 15h30, ça donne des repères pour la session US\n- Pour du swing : tracer sur plusieurs jours\n- Méthode perso de PPVNSA : il trace le profil de la veille pour dégager une direction et une zone à 'récupérer' le jour suivant",
+          },
+          {
+            titre: "Exemple d'entrée : zone 40-68 (RSI + FVG + liquidité)",
+            contenu:
+              "Signal partagé en groupe : Buy 68, SL 58. Différents membres avaient des zones d'achat entre 40 et 58, toutes basées sur le volume profile.\n\nConfirmations utilisées par l'un des membres : RSI à 30 + présence d'un FVG. Anticipation d'une prise de liquidité vers 62 avant la poussée haussière ('si ça pousse quand même à la hausse tant mieux').\n\nTarget donnée : zone des 110, correspondant au point d'équilibre de la VWAP.",
+          },
+          {
+            titre: 'Gestion de position : lot, SL/TP, risque par trade',
+            contenu:
+              "Approche mentionnée : lot de 1.25, SL et TP autour de 20 pips (ou un peu plus), en gardant la direction sur la journée.\n\nAvec une bonne stratégie, viser un R:R de 1 à 2 par trade suffit à bien performer sur la durée.\n\nExemple de risque donné : compte de 25k, risque de 3% = 750€ par trade — 'on n'est pas millionnaire mais ça fait le taff'.",
+          },
+          {
+            titre: 'Outils complémentaires : Orderflow / Footprint',
+            contenu:
+              "Le footprint/orderflow est présenté par un membre comme le complément parfait au Volume Profile / Market Auction Theory.\n\n- Pas d'outil footprint gratuit trouvé sur TradingView\n- Plateformes mentionnées : Bookmap, ATAS (payantes, décrites comme un vrai investissement)\n- Courbe d'apprentissage réelle : environ 4-5h de prise en main (+ ChatGPT pour comprendre) avant de commencer à capter les bases\n- Nécessite un ordinateur — pas utilisable sérieusement depuis un téléphone",
+          },
+          {
+            titre: 'RSI sur Gold : avis de PPVNSA',
+            contenu:
+              "PPVNSA n'utilise pas le RSI sur le Gold en time frame élevé (H1 et au-dessus). Il l'utilise parfois uniquement en M1.\n\nRaison : une news ou une déclaration (ex: Trump) peut maintenir un faux signal de surachat/survente pendant environ 2h, ce qui rend le RSI peu fiable sur cet actif dans ces conditions.",
+          },
+        ],
+      },
+      {
+        titre: 'Pourquoi réagir à une news "choc" est du gambling',
+        parentTitre: 'Impact des news macro sur le Gold — direction & intensité',
+        contenu:
+          "Raisonnement détaillé de PPVNSA :\n\n- Un être humain ne peut pas trader en réaction directe à une news : l'information est déjà intégrée dans le prix en quelques millisecondes par les algorithmes qui cotent l'or.\n- Même les banques, qui ont l'information plus vite que le grand public, ne tradent pas en réaction immédiate à une news — elles agissent dans un contexte plus large, pas comme un réflexe.\n- Exemple concret discuté : un membre d'un autre groupe affirmait qu'une news de bombardement US en Iran était automatiquement un signal BUY. Jugé n'importe quoi par PPVNSA — depuis le début de la guerre en Iran, l'or n'a fait que baisser, et toute l'information liée à cette guerre est déjà pricée dans le marché.\n- Trader sur la base d'un ressenti ('je sais que ça baisse mais je sens que ça va remonter') n'est pas une stratégie, c'est du gambling — même si parfois ça marche par hasard.\n\nConclusion : PPVNSA revendique vouloir enseigner 'le vrai trading', pas ce genre d'approche.",
+      },
+      {
+        titre: 'PPVNSA — contexte du canal et VIP',
+        parentTitre: 'Notions pratiques (groupe)',
+        contenu:
+          "PPVNSA est le fondateur du canal et la source de la stratégie Volume Profile enseignée au groupe. Il lance un VIP payant (~300€, démarrage annoncé pour un lundi, 5 personnes max au départ).\n\nSes signaux sont décrits par les membres comme actuellement tous gagnants — à prendre comme un point positif à surveiller dans la durée plutôt qu'une garantie : un historique court ne prouve pas une edge sur le long terme, à continuer d'observer avant de se fier aveuglément aux signaux.",
+      },
+      {
+        titre: 'Gérer les TP multiples sur plusieurs entrées',
+        parentTitre: 'Trades partagés (groupe)',
+        contenu:
+          "Retour d'expérience partagé en groupe : sur une position construite via plusieurs entrées à des niveaux différents, prendre le TP1 sur les entrées les plus hautes et le TP2 sur les entrées les plus basses permet d'optimiser le résultat global plutôt que de tout sortir au même niveau.\n\nLeçon annexe : un membre a laissé tourner une position sans prendre de profit partiel, qui est ensuite revenue proche du point d'entrée (BE) — sécuriser une partie du gain sur les entrées les plus favorables évite ce genre de retour en arrière.",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
