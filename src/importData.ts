@@ -348,6 +348,19 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-24_checklist_rejet_visuel',
+    label: 'Ajouter la checklist visuelle du rejet (mèche/OB/Displacement)',
+    description: "Complète directement ta page 'Stratégie PPVNSA' (pas de nouvelle page)",
+    tree: [
+      {
+        titre: 'Stratégie PPVNSA',
+        appendTo: 'Stratégie PPVNSA',
+        contenu:
+          "COMMENT REPÉRER UN REJET NET SUR UNE ZONE (mèche + Order Block + Displacement)\n\n1. La mèche de rejet\n- Chercher une bougie avec un petit corps mais une longue mèche (au moins 2x plus longue que le corps) qui pointe vers la zone\n- Le prix pousse à travers/sous la zone pendant la bougie, puis se fait rejeter avant la clôture\n- Souvent la mèche va légèrement au-delà du niveau exact (mini prise de liquidité) avant de remonter\n\n2. L'Order Block\n- S'identifie après coup : une fois la poussée forte visible, regarder en arrière la dernière bougie rouge (baissière) juste avant le décollage\n- Cette bougie (parfois 1 à 3 bougies rouges collées) proche de la zone = l'Order Block\n- Rien de spécial à l'œil nu toute seule — c'est sa position (juste avant le décollage) qui en fait un OB\n\n3. Le Displacement\n- Au moins 3 bougies vertes d'affilée juste après l'OB, avec de gros corps et très peu de mèches\n- Doit ressembler à un escalier propre qui monte, pas un enchaînement hésitant qui se chevauche\n- Confirmation bonus : un FVG visible entre le haut de la 1ère et le bas de la 3ème bougie\n\nChecklist dans l'ordre, à l'œil :\n1. Le prix touche/dépasse légèrement la zone\n2. Mèche de rejet dans les 1-2 bougies qui suivent\n3. Repérer la dernière bougie rouge avant le décollage → l'OB\n4. Vérifier 3+ bougies vertes fortes qui suivent → le Displacement\n5. Si possible, vérifier le RSI M1 proche de 30 → confluence en plus\n\nSignal invalide à ne pas confondre : si la remontée après la mèche est molle (petites bougies hésitantes qui repartent vite à la baisse), ce n'est pas un vrai Displacement — c'est du bruit ou un nouveau piège. N'entrer que sur une poussée nette et propre.",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
