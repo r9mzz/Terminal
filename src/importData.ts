@@ -250,6 +250,31 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-23_indicateurs_et_synthese',
+    label: 'Importer les indicateurs complémentaires + synthèse complète',
+    description: "3 pages : ADX/RSI(M1)/ATR + ruban de MM, mesure d'amplitude, synthèse globale",
+    tree: [
+      {
+        titre: "Indicateurs complémentaires : ADX, RSI(M1), ATR, ruban de moyennes mobiles",
+        parentTitre: 'Stratégie Volume Profile — PPVNSA',
+        contenu:
+          "Lu sur 4 captures d'un graphique XAUUSD en M1 (plateforme mobile de trading, pas TradingView cette fois) :\n\n- Un ruban de plusieurs moyennes mobiles de périodes différentes est tracé directement sur le prix. Quand les lignes sont serrées/entremêlées, le marché est en range ; quand elles s'écartent nettement, ça confirme une tendance en cours — sert de filtre de tendance en complément du Volume Profile/VWAP.\n- Panel d'indicateurs affiché sous le graphique : ADX(14), RSI(14), ATR(14).\n  - ADX(14) : mesure la force de la tendance (peu importe le sens). Une valeur élevée (~40 observé) confirme un mouvement directionnel fort, pas un range.\n  - RSI(14) : utilisé ici en M1, cohérent avec la remarque de PPVNSA notée ailleurs comme quoi il ne l'utilise que sur cette unité de temps sur le Gold.\n  - ATR(14) : mesure la volatilité moyenne récente, probablement utilisé pour calibrer la taille du Stop Loss plutôt qu'un nombre de pips fixe à l'aveugle.\n\nÀ vérifier : ces captures montrent un setup possiblement personnel (compte affiché) plutôt que le setup officiel de PPVNSA — à confirmer avec lui si ces indicateurs font partie de sa méthode ou sont ceux d'un autre membre du groupe.",
+      },
+      {
+        titre: "Mesurer l'amplitude d'un mouvement (outil de range)",
+        parentTitre: 'Stratégie Volume Profile — PPVNSA',
+        contenu:
+          "Sur les mêmes captures, un outil de mesure de range est utilisé pour quantifier un mouvement récent : ex. 648 points sur 21 bougies (+0.23%), ou 4028 points sur 5 bougies (-0.7%).\n\nUtilité probable : évaluer si un mouvement est assez ample pour être considéré comme un vrai déplacement (Displacement, cf. la fiche Concept correspondante) avant de le trader, et/ou calibrer un objectif de prix ou un Stop Loss par rapport à l'amplitude typique récente plutôt qu'un chiffre fixe.",
+      },
+      {
+        titre: 'Synthèse complète de la stratégie PPVNSA',
+        parentTitre: 'Stratégie Volume Profile — PPVNSA',
+        contenu:
+          "Vue d'ensemble reconstituée à partir de tous les messages et captures du groupe (à mettre à jour si de nouveaux éléments arrivent) :\n\n1. Lecture de marché (Market Auction Theory / Volume Profile)\n   - POC (Point de Control), POC d'impulsion, POC Veille et Value Area Low/High : zones de forte concentration de volume, considérées comme des aimants de prix\n   - VWAP utilisée comme point d'équilibre (prix cher/pas cher), pas comme simple support/résistance\n   - Le profil se trace différemment selon l'objectif : session US (Asian open → 15h30), swing (plusieurs jours), ou veille → jour même (méthode perso de PPVNSA)\n\n2. Indicateurs de confirmation\n   - RSI(14) utilisé uniquement en M1 sur le Gold (jugé peu fiable sur les timeframes supérieures, notamment à cause des news qui faussent le signal ~2h)\n   - ADX(14) pour confirmer la force d'une tendance\n   - ATR(14) probablement pour calibrer le risque/SL à la volatilité réelle plutôt qu'à un chiffre fixe\n   - Ruban de moyennes mobiles pour filtrer range vs tendance\n   - FVG et prise de liquidité anticipée comme confirmations d'entrée supplémentaires\n\n3. Exécution et gestion du risque\n   - Lot proportionné au risque (ex: 1.25 lot, ou risque fixe ~3% d'un compte 25k = 750€ par trade)\n   - SL/TP calibrés (~20 pips de base, ou selon l'ATR/l'amplitude récente mesurée)\n   - Mise à breakeven (BE) systématique dès qu'un trade est assez en profit\n   - En cas de stop-out suivi d'une ré-entrée sur le même biais : diviser le risque habituel de moitié\n   - Dispatcher les entrées sur plusieurs niveaux de prix plutôt qu'une seule grosse entrée\n   - Prendre en compte le spread de son propre broker dans le suivi de ses statistiques, par transparence\n\n4. Philosophie sur les news macro\n   - Le sens du marché se lit via l'impact de la news sur le dollar, mais l'ampleur du mouvement dépend surtout de l'écart entre le chiffre publié et le consensus attendu\n   - Un humain ne peut pas réagir assez vite à une news : l'info est déjà pricée en quelques millisecondes par les algorithmes — une news se trade avant sa publication (positionnement anticipé), pas en réaction au chiffre\n   - Réagir à une news choc en pariant sur un sens précis (ex: 'bombardement = buy') est considéré comme du gambling, pas une stratégie\n\n5. Mantra\n   - Signal → Exécution → Discipline → Profit\n   - Point insisté par PPVNSA : même avec la pire exécution possible sur ses signaux (SL pris, BE ratés), le bilan ne devrait théoriquement pas être négatif — l'exécution reste, selon lui, le point faible de la plupart des membres\n\nRéserve à garder en tête : cette synthèse vient d'un groupe gratuit et de messages informels, pas d'un cours structuré — les points marqués comme 'à vérifier' ailleurs dans Connaissance restent à confirmer avant d'être suivis à la lettre.",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
