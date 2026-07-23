@@ -200,6 +200,56 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-23_signaux_ppvnsa',
+    label: 'Importer les signaux détaillés PPVNSA',
+    description: '5 pages : 2 trades complets, bilan hebdo, méthode de gestion en direct',
+    tree: [
+      {
+        titre: 'VENTE GOLD 4120-4125 → BE puis re-sell 4121-4125',
+        parentTitre: 'Trades partagés (groupe)',
+        contenu:
+          "Signal 1 : VENTE GOLD\nEntrée : 4120-4125\nSL : 4130\nTP1 : 4116 / TP2 : 4113 / TP3 : 4099 / TP Open\n\nDéroulé : TP1 touché (+65 pips), prix approché à 1 pip du TP2 sans le toucher, position mise à breakeven (BE), puis stoppée à BE ('évidemment on se fait sortir et ça va tp2 direct après'). Clôturé : 65 pips en profit sur la partie sortie, ~100 pips flottants perdus au retour à BE. Leçon rappelée par PPVNSA : la protection du capital passe avant tout, même sur un 'petit' trade.\n\nSignal 2 (immédiatement après le retour à BE) : VENTE GOLD\nEntrée : 4121-4125\nSL : 4131\nTP1 : 4116 / TP2 : 4113 / TP3 : 4099 / TP Open\nConsigne donnée au groupe : diviser le risque habituel de moitié pour cette ré-entrée après un stop.\nContexte : cassure d'un sideway, tentative d'anticiper un fakeout.\n\nDéroulé : PPVNSA n'a pas été stoppé personnellement, mais suppose que certains membres avec un spread plus large chez leur broker ont pu être sortis — décide de compter ce cas comme un SL dans ses statistiques par souci de transparence. A ajouté des entrées supplémentaires vers 4032 (dispatching d'entrées), ce qui lui a permis de rester en profit global malgré certaines positions en drawdown. Résultat rapporté en cours de trade : +150 pips puis +220 pips.",
+      },
+      {
+        titre: 'Session Gold — mercredi 22 juillet 2026 (bilan détaillé)',
+        parentTitre: 'Trades partagés (groupe)',
+        contenu:
+          "Récap officiel de PPVNSA pour mercredi 22 juillet 2026 :\n\n- TP1 touché (+70 pips)\n- TP2 touché après passage à BE\n- Pour les membres sortis par le spread avant le BE : -120 pips\n- Pour les membres non sortis : TP1 et TP2 touchés, entre 100 et 220 pips de profit selon les entrées\n- Résultat clôturé pour PPVNSA lui-même : +290 pips\n\nBilan de la semaine annoncé : environ +900 pips.\n\nÀ noter : PPVNSA revendique '0 perte' sur la période — à prendre comme une déclaration à vérifier dans la durée, pas comme un fait acquis (cf. la page sur le contexte du canal/VIP).",
+      },
+      {
+        titre: 'ACHAT GOLD 4079-4073 → TP1/TP2 touchés (+170 pips)',
+        parentTitre: 'Trades partagés (groupe)',
+        contenu:
+          "Entrée : 4079-4073\nSL : 4069\nTP1 : 4085 / TP2 : 4088 / TP3 : 4098 / TP Open\n\nDéroulé : TP1 et TP2 touchés, +170 pips. Le reste de la position (viser TP3) a ensuite été ramené à breakeven puis stoppé à ce niveau ('BE touché sur tp3').",
+      },
+      {
+        titre: 'Gestion de trade en direct — méthode PPVNSA',
+        parentTitre: 'Notions pratiques (groupe)',
+        contenu:
+          "Techniques de gestion observées sur plusieurs trades en direct :\n\n- Mise à breakeven (BE) systématique dès qu'un trade est suffisamment en profit, pour protéger le capital même si ça veut dire renoncer à une partie du potentiel\n- En cas de stop-out puis ré-entrée sur le même biais, diviser le risque habituel de moitié plutôt que de reprendre la même taille\n- Dispatcher ses entrées sur plusieurs niveaux de prix plutôt qu'une seule grosse entrée : permet de rester en profit global même si certaines des entrées sont en drawdown\n- Tenir compte du spread de son propre broker : un même niveau de SL peut être touché chez certains brokers et pas chez d'autres — être transparent et compter ces cas dans ses statistiques plutôt que de les ignorer\n\nMantra donné par PPVNSA : Signal → Exécution → Discipline → Profit. Son point insisté : même en suivant ses trades avec la pire exécution possible (SL pris, pertes sur les BE, pires entrées), le bilan ne devrait théoriquement pas être négatif — mais l'exécution reste, selon lui, le point faible de beaucoup de membres.",
+      },
+      {
+        titre: 'Offre : mini-formation gratuite pour les 5 premiers VIP',
+        parentTitre: 'PPVNSA — contexte du canal et VIP',
+        contenu:
+          "PPVNSA propose une mini-formation gratuite sur l'exécution et sa stratégie aux 5 premiers membres inscrits au VIP.",
+      },
+    ],
+  },
+  {
+    id: 'groupe_2026-07-23_cas_pratique_chart',
+    label: 'Importer le cas pratique (lecture de graphique)',
+    description: '1 page : rejet du POC + divergence VWAP sur un exemple réel',
+    tree: [
+      {
+        titre: 'Cas pratique : rejet du POC → journée de tendance',
+        parentTitre: 'Stratégie Volume Profile — PPVNSA',
+        contenu:
+          "Exemple de la méthode en action, lu directement sur 3 captures du même graphique Gold (12h57, 17h32 et 20h26 de la même séance) :\n\n- Le prix évolue autour de deux zones clés marquées par l'indicateur : POC Veille (~4120, zone cyan) et POC d'impulsion (~4130-4133, zone rose)\n- Vers 12h57, le prix revient retester ces deux zones après une poussée haussière, sans réussir à s'y maintenir\n- Entre 12h57 et 17h32, le prix casse sous les deux POC et accélère à la baisse (passe sous 4070)\n- Sur la même période, la VWAP (ligne verte) continue de monter alors que le prix baisse : l'écart entre prix et VWAP se creuse de plus en plus\n- Vers 20h26, le prix est descendu vers 4060-4070, très en dessous de la VWAP (~4135) — un écart de cet ordre confirme une vraie journée de tendance, pas un simple range\n\nLecture à en tirer : un rejet net des zones de POC (au lieu d'une reconquête) combiné à un prix qui s'éloigne durablement de la VWAP valide un biais vendeur pour la suite de la séance — cohérent avec les trades SELL de la session déjà notés (4068→4047, puis la suite vers 4022 et 4005).",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
