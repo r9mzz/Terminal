@@ -4,6 +4,7 @@ interface ImportNode {
   titre: string;
   contenu: string;
   parentTitre?: string;
+  appendTo?: string;
   children?: ImportNode[];
 }
 
@@ -287,6 +288,19 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-23_conflit_poc_vwap',
+    label: 'Ajouter la nuance : quand POC et VWAP se contredisent',
+    description: "Complète directement ta page 'Stratégie PPVNSA' (pas de nouvelle page)",
+    tree: [
+      {
+        titre: 'Stratégie PPVNSA — Volume Profile & Market Auction',
+        appendTo: 'Stratégie PPVNSA — Volume Profile & Market Auction',
+        contenu:
+          "QUE FAIRE QUAND LE POC ET LA VWAP SE CONTREDISENT\nLe POC (aimant directionnel fort) et la VWAP (référence 'cher/pas cher') peuvent pointer dans des sens différents en même temps — ce n'est pas une erreur, ce sont deux outils de nature différente qui n'ont pas le même poids.\n\n- La VWAP donne juste un contexte : le prix est statistiquement au-dessus ou en dessous de sa moyenne pondérée récente. Ce n'est pas un signal d'entrée en soi.\n- Le POC donne une cible plus concrète : une zone de forte concentration de volume vers laquelle le prix a tendance à revenir.\n\nQuand les deux se contredisent, c'est toujours la **réaction du prix sur la zone elle-même** qui tranche, jamais l'un des deux tout seul :\n- Rejet net du POC (mèche, bougie de retournement, RSI qui remonte) → le POC gagne, envisager le sens du rebond\n- Cassure nette du POC sans réaction → la baisse/hausse continue, le contexte VWAP ne suffisait pas à l'invalider\n\nC'est exactement pour ça qu'aucune entrée ne se prend sur un seul élément (juste 'pas cher' ou juste 'proche d'un POC') — il faut toujours une confirmation supplémentaire (FVG, RSI, prise de liquidité) qui vient trancher le conflit.",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
@@ -294,6 +308,15 @@ async function findOrCreateByTitle(titre: string): Promise<number> {
   if (existing?.id !== undefined) return existing.id;
   const id = await db.pages.add({ parentId: ROOT, titre, contenu: '', date: new Date().toISOString() });
   return id ?? ROOT;
+}
+
+async function appendToPageByTitle(titre: string, text: string) {
+  const existing = await db.pages.filter((p) => p.titre === titre).first();
+  if (existing?.id !== undefined) {
+    await db.pages.update(existing.id, { contenu: `${existing.contenu}\n\n${text}` });
+  } else {
+    await db.pages.add({ parentId: ROOT, titre, contenu: text, date: new Date().toISOString() });
+  }
 }
 
 async function insertNode(node: ImportNode, parentId: number) {
@@ -314,6 +337,10 @@ export async function pendingBatches(): Promise<ImportBatch[]> {
 
 export async function runBatch(batch: ImportBatch) {
   for (const node of batch.tree) {
+    if (node.appendTo) {
+      await appendToPageByTitle(node.appendTo, node.contenu);
+      continue;
+    }
     const parentId = node.parentTitre ? await findOrCreateByTitle(node.parentTitre) : ROOT;
     await insertNode(node, parentId);
   }
