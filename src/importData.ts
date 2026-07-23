@@ -361,6 +361,19 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-24_rappel_a_revoir',
+    label: "Ajouter un rappel : exemple POC Veille/impulsion à réexpliquer",
+    description: "Complète ta page 'Notes diverses' (pas de nouvelle page)",
+    tree: [
+      {
+        titre: 'Notes diverses (à renommer)',
+        appendTo: 'Notes diverses (à renommer)',
+        contenu:
+          "À REVOIR : exemple POC Veille / POC d'impulsion / VWAP\nCaptures du même graphique Gold à 12h57, 17h32 et 20h26 : POC Veille (zone cyan, ~4120), POC d'impulsion (zone rose, ~4130-4133), VWAP (ligne verte) qui continue de monter pendant que le prix baisse toute la séance. Pas encore bien compris malgré une première explication (voir la page Explication, section 'SELL après rejet du POC (22 juillet)') — à reprendre depuis le début, plus lentement, la prochaine fois.",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
