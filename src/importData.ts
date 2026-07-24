@@ -374,6 +374,19 @@ const BATCHES: ImportBatch[] = [
       },
     ],
   },
+  {
+    id: 'groupe_2026-07-24_programme_demain',
+    label: 'Ajouter le programme de la prochaine session',
+    description: "Complète ta page 'Notes diverses' (pas de nouvelle page)",
+    tree: [
+      {
+        titre: 'Notes diverses (à renommer)',
+        appendTo: 'Notes diverses (à renommer)',
+        contenu:
+          "PROGRAMME DE LA PROCHAINE SESSION\n1. Réexpliquer les différents POC (Veille, impulsion, du jour) en repartant des captures d'écran déjà envoyées, un par un, sans aller trop vite\n2. Réexpliquer concrètement comment savoir si un POC rejette ou pas : la mèche, l'Order Block, le Displacement — en pointant chaque élément directement sur les captures plutôt qu'en restant théorique",
+      },
+    ],
+  },
 ];
 
 async function findOrCreateByTitle(titre: string): Promise<number> {
